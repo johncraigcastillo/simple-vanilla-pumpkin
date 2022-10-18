@@ -165,10 +165,10 @@ section.hero .down-arrow path {
     height: 42em;
   }
   .logo {
-    color: black;
+    color: darkorange;
   }
   .logo span {
-    color: darkgoldenrod;
+    color: black;
   }
   section.hero {
     height: auto;
