@@ -1,0 +1,302 @@
+body {
+  // typically use em for margins and padding
+  margin: 1.5em;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  // typically want to use rem units for font-size
+  font-size: 1.3rem;
+}
+
+.hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("../assets/fall.jpg");
+  background-size: cover;
+  background-position-x: 20%;
+  background-position-y: 20%;
+  width: 100%;
+  // vh is viewport height
+  height: 100vh;
+  z-index: -1;
+  // runs for 2 seconds and then stops
+  animation: introLoad 1s ease-in-out forwards;
+  // overflow: hidden;
+}
+
+.logo {
+  color: white;
+  font-weight: bold;
+}
+
+nav {
+  // position fixed means it will remain as you scroll
+  position: fixed;
+  right: 0;
+  top: 0;
+  background: white;
+  height: 100vh;
+  width: 40vw;
+  // z-index is used to control the stacking order of elements
+  z-index: 99;
+  text-transform: uppercase;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
+
+  svg.close {
+    float: right;
+    margin: 2em;
+    width: 2em;
+    cursor: pointer;
+    fill: black;
+    path {
+      fill: black;
+    }
+  }
+
+  ul {
+    // gets rid of the bullet points
+    list-style: none;
+    padding: 0;
+    margin-top: 8em;
+
+    a {
+      color: black;
+      padding: 0.75em 2em;
+      // padding between link elements won't work unless you set display to block
+      display: block;
+
+      &:hover {
+        background: #f1f1f1;
+      }
+    }
+  }
+}
+
+header {
+  // learn about flexbox
+  display: flex;
+  justify-content: space-between;
+
+  // Hamburger menu
+  .menu {
+    width: 3em;
+    margin-top: 0.1em;
+    cursor: pointer;
+    stroke: white;
+    path {
+      fill: white;
+    }
+  }
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 2em;
+  line-height: 3.3rem;
+}
+
+.subhead {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+section.hero {
+  color: darkgoldenrod;
+  height: 90vh;
+  animation: moveDown 1s ease-in-out forwards;
+  opacity: 0;
+
+  // coloring the svg
+  .down-arrow {
+    stroke: white;
+    position: absolute;
+    bottom: 0;
+    width: 3em;
+    margin-bottom: 10em;
+    height: 3em;
+    animation: moveArrow 1s alternate-reverse infinite;
+
+    // Not sure what path does. Stroke colors it fine
+    path {
+      fill: red;
+    }
+  }
+}
+
+.more-info {
+  img {
+    width: 100%;
+    object-fit: cover;
+    height: 11em;
+  }
+  .title {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .desc {
+    line-height: 1.5rem;
+  }
+}
+
+.open-nav {
+  transform: translateX(0);
+}
+
+// Settings for when the screen is greater than 680px
+// Changes the left and right margins
+@media only screen and (min-width: 680px) {
+  body {
+    // typically use em for margins and padding
+    margin: 1.5em 5em;
+  }
+}
+
+@media only screen and (min-width: 920px) {
+  .menu {
+    display: none;
+  }
+  // changes the from mobile view to desktop view of navbar
+  nav {
+    transform: translateX(0);
+    position: unset;
+    display: block;
+    width: auto;
+    height: auto;
+    background: none;
+
+    svg.close {
+      display: none;
+    }
+
+    ul {
+      display: flex;
+      margin: 0;
+
+      a {
+        color: white;
+        padding: 0.5em 1.5em;
+        font-size: 0.9rem;
+
+        &:hover {
+          background: none;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .hero-img {
+    left: unset;
+    right: 0;
+    width: 50%;
+    height: 42em;
+  }
+
+  .logo {
+    color: black;
+    span {
+      color: darkgoldenrod;
+    }
+  }
+
+  section.hero {
+    height: auto;
+    width: 40%;
+    margin-bottom: 8em;
+
+    .subhead {
+      color: black;
+    }
+
+    .down-arrow {
+      stroke: black;
+      position: unset;
+    }
+  }
+
+  // Grid layout for the more-info section
+  .feature {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 3em;
+    margin-bottom: 8em;
+
+    img {
+      width: 25em;
+    }
+
+    .content {
+      text-align: right;
+      width: 25em;
+    }
+  }
+
+  // class is named feature left but because we use feature.left
+  // it inherits the styles from feature
+  .feature.left {
+    grid-template-areas: "left right";
+
+    img {
+      grid-area: left;
+    }
+
+    .content {
+      text-align: left;
+      // below options don't seem to make a difference
+      width: 25em;
+      justify-self: left;
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .wrapper {
+    width: 1200px;
+    // keeps it center
+    margin: 0 auto;
+  }
+
+  .feature {
+    // brings things in closer to the center
+    gap: 0;
+  }
+
+  section.hero {
+    margin-bottom: 13em;
+  }
+}
+
+@keyframes introLoad {
+  // used clippy from bennettfeely.com/clippy to get the path
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0% 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes moveArrow {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
